@@ -1,3 +1,3 @@
 # algoritm24
 
-# 신연준
+# contects I'm 신연준
