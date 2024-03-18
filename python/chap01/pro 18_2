@@ -1,0 +1,47 @@
+class Node :
+    def __init__(self ,data ,link = None) :  
+        self.data = data        # 현재 노드의 데이터
+        self.link = link        # 다음 노드를 가르킴
+    
+class LinkedList : 
+    def __init__(self):
+        self.head = None   # 초기화
+
+    def append (self, data) :
+
+        new_node = Node(data) # 새로운 노드 생성
+
+        if self.head is None :  # 연결 리스트가 비었다면
+            self.head = new_node    # 처음에 저장
+            return
+        
+        last_node = self.head
+
+        while last_node.link :  # 마지막 노드로 이동
+            last_node = last_node.link  
+        last_node.link = new_node   # 새로운 노드를 마지막 노드 다음에 연결
+    
+    def display(self) :         # 리스트 출력
+        current_node = self.head
+
+        while current_node :
+            print(current_node.data, end = " ")
+            current_node = current_node.link
+        print()
+
+def main() :
+    num_nodes = int(input("노드의 개수 :"))
+
+    linked_list = LinkedList()
+
+    for i in range(num_nodes) :
+        data = int(input("노드#%d 의 데이터 :" % (i + 1)))
+        linked_list.append(data)
+    
+    print("리스트의 내용: ")
+    linked_list.display()
+
+    return 0
+
+if __name__ == "__main__":
+    main()

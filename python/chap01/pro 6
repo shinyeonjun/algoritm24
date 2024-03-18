@@ -1,0 +1,21 @@
+# gcd(a,b)
+#   if a > b must
+#   while ≠ 0 then
+#       r ← a % b
+#       a ← b
+#       b ← r
+#   if a < b then
+#       a, b ← b, a
+#   return a
+
+def gcd(a, b) :
+    if (a < b) :
+        a, b = b, a
+    print("gcd (%d,%d)" % (a,b))
+    while b != 0 :
+        r = a % b
+        a = b
+        b = r
+        print("gcd (%d,%d)" % (a,b))
+    return a
+print("60과 28의 최대 공약수 = ", gcd(60,28))

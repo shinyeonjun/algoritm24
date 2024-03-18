@@ -1,0 +1,13 @@
+def gcd(a, b) :
+
+    alist = []
+
+    for i in range(1, a + 1) :
+        if a % i == 0 :
+            alist.append(i)
+    print("%d 의 약수 = "% a, alist)
+
+    for i in range(len(alist) - 1, 0, -1) :
+        if b % alist[i] == 0 :
+            return alist[i]
+print(gcd(60,28))

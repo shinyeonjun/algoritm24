@@ -1,0 +1,38 @@
+class Stack :
+    def __init__(self) :
+        self.datas = []        # 스택 리스트 초기화
+    
+    def is_empty(self) :
+        return self.datas == []     # 스택이 비었는지 여부를 확인
+
+    def push(self, data) :
+        self.datas.append(data)     # 스택에 원소를 추가
+
+    def pop(self) :
+        if not self.is_empty() :     # 스택이 비어있지 않으면
+            return self.datas.pop()        # 데이터를 꺼내서 반환
+        else :
+            print("스택이 비어있습니다.\n")
+            return None
+
+def reverse (input) :
+    stack = Stack()     # 스택 생성
+    reverse_string = ""     # 문자열 변수 초기화
+
+    for word in input :
+        stack.push(word)   # 스택에 문자를 푸쉬
+    
+    while not stack.is_empty() :
+        reverse_string += stack.pop()   # 스택의 마지막 부터 꺼내어 역순문자열 변수에 저장
+    
+    return reverse_string   # 역순으로 저장한 문자열 반환
+
+def main() :
+    input_string = input("문자열을 입력하시오>> ")
+
+    print("역순으로 출력합니다. ", reverse(input_string))
+
+    return 0
+
+if __name__ == "__main__":
+    main()
