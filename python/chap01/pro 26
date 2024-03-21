@@ -1,0 +1,6 @@
+def Compare (listA, listB) :
+
+    if listA.issubset(listB) and listA != listB :   # 부분집합 이면서
+            return True
+        
+    return False
