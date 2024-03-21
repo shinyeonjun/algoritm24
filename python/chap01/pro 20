@@ -1,0 +1,17 @@
+def compare(data1, data2) :
+    for i in data1 :
+        if i in data2:
+            return True
+    return False
+
+def main() :
+    temp_1 = input("첫번째 리스트를 공백 문자 기준으로 숫자를 입력하시오 >>").split()
+    temp_2 = input("두번째 리스트를 공백 문자 기준으로 숫자를 입력하시오 >>").split()
+    temp_1 = list(map(int, temp_1))
+    temp_2 = list(map(int, temp_2))
+    print(compare(temp_1, temp_2))
+
+    return 0
+
+if __name__ == "__main__":
+    main()
