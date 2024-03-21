@@ -1,0 +1,16 @@
+def find_Max(data):
+    return max(data)
+
+def find_Min(data) :
+    return min(data)
+
+def main() :
+    temp = input("숫자를 공백기준으로 띄어서 입력하시오.>> ").split()
+    temp = [int(i) for i in temp]
+    print("최댓값은 >>", find_Max(temp), end = "\n")
+    print("최솟값은 >>", find_Min(temp))
+
+    return 0
+
+if __name__ == "__main__":
+    main()
