@@ -1,0 +1,7 @@
+def Factorial(data) :
+    if data == 1 :
+        return 1
+    else :
+        return data * Factorial(data - 1)
+    
+    
