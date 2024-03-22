@@ -1,0 +1,19 @@
+def set_operations(data, data_2) :
+    temp = set(data).union(set(data_2))
+    print("합집합 >>", temp)
+    temp = set(data).intersection(set(data_2))
+    print("교집합 >>", temp)
+    temp = set(data) - set(data_2)
+    print("차집합 >>", temp)
+
+def main() :
+    list1 = input("첫번째 리스트의 숫자를 공백 기준으로 띄어서 입력하시오. >>").split()
+    list2 = input("두번째 리스트의 숫자를 공백 기준으로 띄어서 입력하시오. >>").split()
+    list1 = [int(i) for i in list1]
+    list2 = [int(i) for i in list2]
+    set_operations(list1, list2)
+
+    return 0
+
+if __name__ == "__main__":
+    main()
