@@ -1,0 +1,31 @@
+import math
+import random
+
+def distance(x, y) :
+    x1, y1 = x
+    x2, y2 = y
+    return math.sqrt(math.pow(x1 - x2, 2) + math.pow(y1 - y2, 2))
+
+def closest_pair (p): # p는 2차원 배열
+    n = len(p)
+    midist = float("inf")
+    for i in range(n-1) :
+        for j in range(i+1, n) :
+            dist = distance(p[i], p[j])
+            if dist < midist:
+                midist = dist
+    return midist
+
+def main():
+    matrix = []
+    for i in range(10):
+        a = []
+        for j in range(2): 
+            a.append(random.randint(1,20))
+        matrix.append(a)
+
+    print(closest_pair(matrix))
+
+    return 0
+
+main()
