@@ -1,0 +1,49 @@
+def powerMat(x, n) :
+    if n == 1 :
+        return x 
+    elif (n % 2) == 0 :
+        return powerMat(multMat(x, x), n // 2)
+    else :
+        return multMat(x, powerMat(multMat(x, x), (n - 1) // 2))
+
+def multMat(M1, M2) : # M1, M2는 2차원 리스트
+    y = len(M1)     # 행의 길이
+    x = len(M1[0])  # 열의 길이
+    lista = []      # 곱한 2차원 리스트
+    for i in range(y) :     # 행
+        temp = [] # 1차원 리스트 모두 lista에 넣은 후 초기화
+        for j in range(x) :     # 열
+            t = 0   # t 다 더해주면 0으로 초기화
+            for k in range(x) :
+                t += M1[i][k] * M2[k][j]
+            temp.append(t)  # t를 더해준걸 1차원 리스트인 temp에 저장
+        lista.append(temp)  # 1차원 리스트 모두 lista에 넣어줌
+
+    return lista
+
+def main() :
+    M = []
+
+    n = int(input("n * n 행렬을 입력하기 위한 n의 정수를 입력 >>"))
+    for i in range(n) :
+        temp = []
+        for j in range(n) :
+            x = int(input("행의 요소를 입력하시오.(숫자 1개씩) >>"))
+            temp.append(x)
+        M.append(temp)
+    r = int(input("거듭제곱의 지수를 입력하시오 >>"))
+
+    result = powerMat(M, r)
+    for i in result :
+        print(i)
+
+    return 0
+
+main()
+    
+
+
+
+
+
+ 
