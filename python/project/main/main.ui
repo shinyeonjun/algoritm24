@@ -78,11 +78,36 @@
     <string>TextLabel</string>
    </property>
   </widget>
+  <widget class="QCheckBox" name="bgmBox">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>30</y>
+     <width>96</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>BGM OFF</string>
+   </property>
+  </widget>
+  <widget class="QListView" name="listView_5">
+   <property name="geometry">
+    <rect>
+     <x>18</x>
+     <y>24</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
   <zorder>Main_Pix</zorder>
+  <zorder>listView_5</zorder>
   <zorder>Main_Title</zorder>
   <zorder>Start_Button</zorder>
   <zorder>Members</zorder>
   <zorder>Exit_Button</zorder>
+  <zorder>bgmBox</zorder>
  </widget>
  <resources/>
  <connections/>
