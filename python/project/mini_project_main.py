@@ -201,6 +201,24 @@ def index_files():
     # 정렬된 파일 리스트를 반환합니다.
     return txt_file
 
+def index_goal_files():
+    # output_dir 변수에는 현재 스크립트가 위치한 디렉토리(script_dir)에 "league"라는 하위 디렉토리를 포함한 경로가 저장됩니다.
+    output_dir = os.path.join(script_dir, "goal")
+
+    # output_dir 디렉토리에 있는 파일과 디렉토리 목록을 가져옵니다.
+    files = os.listdir(output_dir)
+
+    # 파일 목록(files) 중에서 확장자가 '.txt'인 파일들만 필터링하여 txt_file 리스트에 저장합니다.
+    txt_file = [f for f in files if f.endswith('.txt')]
+
+    # txt_file 리스트에 있는 파일들을 수정된 시간을 기준으로 내림차순으로 정렬합니다.
+    # 정렬 기준은 파일의 수정 시간(os.path.getmtime)을 사용합니다.
+    # reverse=True 옵션을 통해 내림차순으로 정렬합니다.
+    txt_file.sort(key=lambda x: os.path.getmtime(os.path.join(output_dir, x)), reverse=True)
+
+    # 정렬된 파일 리스트를 반환합니다.
+    return txt_file
+
 def file_count():
     current_dir = os.path.dirname(os.path.abspath(__file__))
     league_dir = os.path.join(current_dir, 'league')
@@ -231,5 +249,70 @@ def file_search(index):
             data.append(int_parts)  # 변환된 데이터를 data 리스트에 추가합니다.
             
     return data
+
+def goal_file_search(index, team_name):
+    # 최신 파일들을 리스트로 가져옵니다. goal_files[0]이 가장 최신의 파일 데이터입니다.
+    goal_files = index_goal_files()
+    
+    # index에 해당하는 파일 이름을 가져옵니다.
+    goal_file_name = goal_files[index]
+    
+    # goal 파일의 경로를 만듭니다.
+    goal_file_path = os.path.join(script_dir, "goal", goal_file_name)
+    
+    # 결과를 저장할 리스트입니다.
+    team_results = []
+
+    # goal 파일을 읽기 모드로 엽니다.
+    with open(goal_file_path, 'r', encoding='utf-8') as file:
+        # 파일의 각 줄을 반복합니다.
+        for line in file:
+            # 줄 양쪽의 공백 문자를 제거합니다.
+            line = line.strip()
+            
+            # 'Team'으로 시작하는 줄을 찾습니다.
+            if line.startswith('Team'):
+                # 팀 이름을 ' vs '로 분할합니다.
+                teams = line.split(' vs ')
+                
+                # 팀이 두 개 있는지 확인합니다.
+                if len(teams) == 2:
+                    # 각 팀의 이름을 추출합니다.
+                    team1, team2 = teams[0].replace('Team ', ''), teams[1].replace('Team ', '')
+                    
+                    # 다음 줄을 읽어서 팀1의 골 수를 추출합니다.
+                    goals1 = int(file.readline().strip().split(': ')[1])
+                    
+                    # 그 다음 줄을 읽어서 팀2의 골 수를 추출합니다.
+                    goals2 = int(file.readline().strip().split(': ')[1])
+                    
+                    # 팀 이름이 원하는 팀 이름과 일치하는지 확인합니다.
+                    if team1 == team_name or team2 == team_name:
+                        # 결과 리스트에 경기 결과를 추가합니다.
+                        team_results.append({'team1': team1, 'team2': team2, 'goals1': goals1, 'goals2': goals2})
+    
+    # 결과를 형식화합니다.
+    formatted_results = format_match_results(team_results)
+    
+    # 형식화된 결과를 반환합니다.
+    return formatted_results
+
+# 경기 결과를 형식화하는 함수
+def format_match_results(results):
+    formatted_results = []
+    # 각 경기 결과를 반복합니다.
+    for match in results:
+        # 팀 이름과 골 수를 가져옵니다. 키가 없을 경우 기본값을 사용합니다.
+        team1 = match.get('team1', 'Unknown Team 1')
+        team2 = match.get('team2', 'Unknown Team 2')
+        goals1 = match.get('goals1', 0)
+        goals2 = match.get('goals2', 0)
+        
+        # 형식화된 문자열을 만들어 리스트에 추가합니다.
+        formatted_results.append(f"{team1} {goals1} : {goals2} {team2}")
+    
+    # 형식화된 결과 리스트를 반환합니다.
+    return formatted_results
+
 
 

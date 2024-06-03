@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>650</height>
+    <height>649</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>800</x>
-     <y>590</y>
+     <y>588</y>
      <width>151</width>
      <height>51</height>
     </rect>
@@ -56,9 +56,9 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>0</y>
+     <y>-50</y>
      <width>1001</width>
-     <height>651</height>
+     <height>761</height>
     </rect>
    </property>
    <property name="text">
@@ -79,7 +79,7 @@
    <property name="geometry">
     <rect>
      <x>60</x>
-     <y>603</y>
+     <y>597</y>
      <width>96</width>
      <height>19</height>
     </rect>
@@ -91,28 +91,18 @@
   <widget class="QListView" name="listView_4">
    <property name="geometry">
     <rect>
-     <x>26</x>
-     <y>598</y>
+     <x>27</x>
+     <y>590</y>
      <width>151</width>
      <height>31</height>
     </rect>
    </property>
   </widget>
-  <widget class="QListView" name="listView_5">
-   <property name="geometry">
-    <rect>
-     <x>540</x>
-     <y>602</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="searchButton">
    <property name="geometry">
     <rect>
      <x>700</x>
-     <y>602</y>
+     <y>596</y>
      <width>75</width>
      <height>31</height>
     </rect>
@@ -162,7 +152,7 @@
     <rect>
      <x>30</x>
      <y>90</y>
-     <width>931</width>
+     <width>911</width>
      <height>481</height>
     </rect>
    </property>
@@ -208,7 +198,7 @@
      <widget class="QListView" name="listView_gd_7"/>
     </item>
     <item row="0" column="3">
-     <widget class="QPushButton" name="drawButton">
+     <widget class="QPushButton" name="drwaButton">
       <property name="text">
        <string>무승부</string>
       </property>
@@ -236,7 +226,7 @@
      <widget class="QListView" name="listView_gd_5"/>
     </item>
     <item row="0" column="7">
-     <widget class="QPushButton" name="pushButton_10">
+     <widget class="QPushButton" name="pointsButton">
       <property name="text">
        <string>승점</string>
       </property>
@@ -440,6 +430,13 @@
     <item row="6" column="1">
      <widget class="QListView" name="listView_win_6"/>
     </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="nameButton">
+      <property name="text">
+       <string>구단</string>
+      </property>
+     </widget>
+    </item>
     <item row="10" column="7">
      <widget class="QListView" name="listView_points_10"/>
     </item>
@@ -458,6 +455,16 @@
     </item>
    </layout>
   </widget>
+  <widget class="QLineEdit" name="searchlineEdit">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>595</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
   <zorder>Main_Pix</zorder>
   <zorder>listView_4</zorder>
   <zorder>listView_3</zorder>
@@ -465,12 +472,12 @@
   <zorder>Start_Button_2</zorder>
   <zorder>Start_Button</zorder>
   <zorder>bgmBox</zorder>
-  <zorder>listView_5</zorder>
-  <zorder>pushButton_3</zorder>
+  <zorder>searchButton</zorder>
   <zorder>listView_6</zorder>
   <zorder>label_11</zorder>
   <zorder>label_12</zorder>
   <zorder>gridLayoutWidget</zorder>
+  <zorder>searchlineEdit</zorder>
  </widget>
  <resources/>
  <connections/>

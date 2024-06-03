@@ -9,12 +9,12 @@
 # 알고리즘  필수
 
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QListView, QVBoxLayout, QWidget, QPushButton, QCheckBox
-from PyQt5.QtGui import QPixmap, QStandardItemModel, QStandardItem, QFont, QIcon
+from PyQt5.QtWidgets import*
+from PyQt5.QtGui import*
 from PyQt5.QtCore import Qt, QCoreApplication, QUrl
 from PyQt5 import uic, QtWidgets, QtGui, QtCore
 import os
-from datetime import datetime
+from datetime import*
 from mini_project_main import*
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 
@@ -27,6 +27,20 @@ search = statistics_search
 in_file = index_files
 count = file_count
 search_data = file_search
+goal_search = goal_file_search
+
+teams = [
+    "맨체스터 시티",
+    "리버풀",
+    "아스널",
+    "애스턴빌라",
+    "토트넘",
+    "첼시",
+    "맨체스터 유나이티드",
+    "에버턴",
+    "뉴캐슬",
+    "울브스"
+]
 
 index = 0
 temp = 0
@@ -37,6 +51,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 main_ui_path = os.path.join(script_dir, "main", "main.ui")
 start_ui_path = os.path.join(script_dir, "main", "start.ui")
 statistics_ui_path = os.path.join(script_dir, "main", "Statistics.ui")
+search_ui_path = os.path.join(script_dir, "main", "search.ui")
 error_ui_path = os.path.join(script_dir, "main", "error.ui")
 error_2_ui_path = os.path.join(script_dir, "main", "error_2.ui")
 error_3_ui_path = os.path.join(script_dir, "main", "error_3.ui")
@@ -51,11 +66,21 @@ from_class_error_2 = uic.loadUiType(error_2_ui_path)[0]
 from_class_error_3 = uic.loadUiType(error_3_ui_path)[0]
 from_class_error_5 = uic.loadUiType(error_5_ui_path)[0]
 from_class_error_6 = uic.loadUiType(error_6_ui_path)[0]
+from_class_saerch = uic.loadUiType(search_ui_path)[0]
 image_path = os.path.join(script_dir, "main", "Main.png")
+ManU_image = os.path.join(script_dir, "team", "manU.png")
+Arsenal_image = os.path.join(script_dir, "team", "Arsenal.png")
+Chelsea_image = os.path.join(script_dir, "team", "chelsea.png")
+Everton_image = os.path.join(script_dir, "team", "everton.png")
+Liverpool_image = os.path.join(script_dir, "team", "liverpool.png")
+Mancity_image = os.path.join(script_dir, "team", "mancity.png")
+Newcatle_image = os.path.join(script_dir, "team", "new.png")
+Tottenham_image = os.path.join(script_dir, "team", "tottenham.png")
+Villa_image = os.path.join(script_dir, "team", "villa.png")
+Wolves_image = os.path.join(script_dir, "team", "wolves.png")
 
 # 음악 파일 경로 설정
 music_file = os.path.join(script_dir, "sound", "pro_sound.mp3").replace("\\", "/")
-
 
 # 화면을 띄우는데 사용되는 클래스 선언
 class Main_UI(QMainWindow, form_class_main):
@@ -66,11 +91,12 @@ class Main_UI(QMainWindow, form_class_main):
         self.Exit_Button.clicked.connect(self.exiteFunction)
         self.Start_Button.clicked.connect(self.startFunction)
         self.bgmBox.stateChanged.connect(self.bgmFunction)
+        print(goal_search(0, "뉴캐슬"))
         self.bgm_player = QMediaPlayer()  # BGM 재생을 위한 MediaPlayer 설정
         if checkbox_state is not None:  # checkbox_state가 None이 아닌 경우에만 실행
             self.bgm_state = checkbox_state
             if self.bgm_state:
-                self.bgmBox.setChecked(True)
+                self.bgmBox.setChecked(True) 
         else:
             self.bgm_state = False  # checkbox_state가 None이면 False로 설정
             self.play_bgm()
@@ -250,7 +276,7 @@ class Start_UI(QMainWindow, from_class_start):
             self.play_bgm()
             self.bgm_state = False 
 
-class Statistics_UI(QMainWindow, from_class_statistics):#
+class Statistics_UI(QMainWindow, from_class_statistics):
     def __init__(self, checkbox_state):
         super().__init__()
         self.setupUi(self)
@@ -258,6 +284,7 @@ class Statistics_UI(QMainWindow, from_class_statistics):#
         self.Start_Button.clicked.connect(self.beforeFunction)
         self.Start_Button_2.clicked.connect(self.nextFunction)
         self.Start_Button_3.clicked.connect(self.backFunction)
+        self.searchButton.clicked.connect(self.searchFunction_2)
         self.loadview(0)
         self.bgmBox.stateChanged.connect(self.bgmFunction)
         self.bgm_player = QMediaPlayer() # BGM 재생을 위한 MediaPlayer 설정
@@ -265,6 +292,24 @@ class Statistics_UI(QMainWindow, from_class_statistics):#
         if self.bgm_state:
             self.bgmBox.setChecked(True)  # 이전 UI에서 체크된 상태라면 체크박스를 체크함
         
+        # label_11, label_12의 텍스트 색상을 흰색(white)으로 설정
+        self.label_11.setStyleSheet('color: white;')
+        self.label_12.setStyleSheet('color: white;')
+        
+        # searchlistView, searchButton이 이미 파일에 만들어져 있다고 가정
+        self.searchModel = QStandardItemModel()
+        self.searchButton.clicked.connect(self.searchFunction)
+
+    def searchFunction(self):
+        search_text = self.searchlineEdit.text()  # searchlineEdit을 사용
+        if search_text:
+            self.searchModel.clear()
+            # 예시 데이터를 추가 (실제 데이터로 대체 가능)
+            example_items = ["apple", "banana", "cherry", "date", "fig", "grape"]
+            for item_text in example_items:
+                if search_text.lower() in item_text.lower():
+                    item = QStandardItem(item_text)
+                    self.searchModel.appendRow(item)
 
     def set_images(self):
         label_width = self.Main_Pix.width()
@@ -297,6 +342,11 @@ class Statistics_UI(QMainWindow, from_class_statistics):#
     def backFunction(self):
         self.close()  # 현재 창 닫기
         self.new_window = Start_UI(self.bgm_state)  # 이전 창 생성
+        self.new_window.show()
+
+    def searchFunction_2(self) :
+        self.close()
+        self.new_window = Search()
         self.new_window.show()
 
     def loadview(self, index):
@@ -367,6 +417,26 @@ class Statistics_UI(QMainWindow, from_class_statistics):#
         else:
             self.play_bgm()
             self.bgm_state = False 
+
+class Search(QMainWindow, from_class_saerch) :
+    def __init__(self) :
+        super().__init__()
+        self.setupUi(self)
+        self.set_images()
+        self.backButton.clicked.connect(self.backFunction)
+
+    def set_images(self):
+        label_width = self.Main_Pix.width()
+        label_height = self.Main_Pix.height()
+        pixmapStartPix = QPixmap(image_path)
+        pixmapStartPix = pixmapStartPix.scaled(label_width, label_height, Qt.KeepAspectRatio)
+        self.Main_Pix.setPixmap(pixmapStartPix)
+    
+    def backFunction(self):
+        self.close()  # 현재 창 닫기
+        self.new_window = Statistics_UI(self.bgm_state)  # 이전 창 생성
+        self.new_window.show()
+
 
 class Error_UI(QMainWindow, from_class_error):
     def __init__(self):
