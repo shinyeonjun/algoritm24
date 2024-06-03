@@ -11,12 +11,13 @@
 import sys
 from PyQt5.QtWidgets import*
 from PyQt5.QtGui import*
-from PyQt5.QtCore import Qt, QCoreApplication, QUrl
+from PyQt5.QtCore import*
 from PyQt5 import uic, QtWidgets, QtGui, QtCore
 import os
 from datetime import*
 from mini_project_main import*
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+from PyQt5.QtMultimediaWidgets import QVideoWidget
 
 # Import functions
 start = league_start
@@ -57,6 +58,18 @@ error_2_ui_path = os.path.join(script_dir, "main", "error_2.ui")
 error_3_ui_path = os.path.join(script_dir, "main", "error_3.ui")
 error_5_ui_path = os.path.join(script_dir, "main", "error_5.ui")
 error_6_ui_path = os.path.join(script_dir, "main", "error_6.ui")
+image_path = os.path.join(script_dir, "main", "Main.png")
+ManU_image = os.path.join(script_dir, "team", "manU.png")
+Arsenal_image = os.path.join(script_dir, "team", "Arsenal.png")
+Chelsea_image = os.path.join(script_dir, "team", "chelsea.png")
+Everton_image = os.path.join(script_dir, "team", "everton.jpg")
+Liverpool_image = os.path.join(script_dir, "team", "liverpool.png")
+Mancity_image = os.path.join(script_dir, "team", "mancity.png")
+Newcatle_image = os.path.join(script_dir, "team", "new.png")
+Tottenham_image = os.path.join(script_dir, "team", "tottenham.png")
+Villa_image = os.path.join(script_dir, "team", "villa.png")
+Wolves_image = os.path.join(script_dir, "team", "wolves.png")
+intro_mp4 = os.path.join(script_dir, "main", "intro.mp4")
 
 form_class_main = uic.loadUiType(main_ui_path)[0]
 from_class_start = uic.loadUiType(start_ui_path)[0]
@@ -67,17 +80,6 @@ from_class_error_3 = uic.loadUiType(error_3_ui_path)[0]
 from_class_error_5 = uic.loadUiType(error_5_ui_path)[0]
 from_class_error_6 = uic.loadUiType(error_6_ui_path)[0]
 from_class_saerch = uic.loadUiType(search_ui_path)[0]
-image_path = os.path.join(script_dir, "main", "Main.png")
-ManU_image = os.path.join(script_dir, "team", "manU.png")
-Arsenal_image = os.path.join(script_dir, "team", "Arsenal.png")
-Chelsea_image = os.path.join(script_dir, "team", "chelsea.png")
-Everton_image = os.path.join(script_dir, "team", "everton.png")
-Liverpool_image = os.path.join(script_dir, "team", "liverpool.png")
-Mancity_image = os.path.join(script_dir, "team", "mancity.png")
-Newcatle_image = os.path.join(script_dir, "team", "new.png")
-Tottenham_image = os.path.join(script_dir, "team", "tottenham.png")
-Villa_image = os.path.join(script_dir, "team", "villa.png")
-Wolves_image = os.path.join(script_dir, "team", "wolves.png")
 
 # 음악 파일 경로 설정
 music_file = os.path.join(script_dir, "sound", "pro_sound.mp3").replace("\\", "/")
@@ -100,6 +102,21 @@ class Main_UI(QMainWindow, form_class_main):
         else:
             self.bgm_state = False  # checkbox_state가 None이면 False로 설정
             self.play_bgm()
+
+        # 영상 재생 위젯 생성
+        self.video_widget = QVideoWidget()
+        self.setCentralWidget(self.video_widget)
+
+        # 비디오 플레이어 설정
+        self.media_player = QMediaPlayer()
+        self.media_player.setVideoOutput(self.video_widget)
+
+        # 비디오 파일 설정
+        file_path = intro_mp4
+        self.media_player.setMedia(QMediaContent(QUrl.fromLocalFile(file_path)))
+
+        # 영상 재생
+        self.media_player.play()
 
     def set_images(self):
         label_width = self.Main_Pix.width()
@@ -150,13 +167,14 @@ class Start_UI(QMainWindow, from_class_start):
         self.set_images()
         if temp == 1 :
             self.loadview()
+            self.set_images_1()         
         self.Start_Button.clicked.connect(self.startFunction)
         self.Start_Button_2.clicked.connect(self.reloadFunction)
         self.Start_Button_3.clicked.connect(self.statusFunction)
         self.Start_Button_4.clicked.connect(self.backFunction)
         self.bgmBox.stateChanged.connect(self.bgmFunction)
         self.bgm_state = checkbox_state
-        self.bgm_player = QMediaPlayer() # BGM 재생을 위한 MediaPlayer 설정
+        self.bgm_player = QMediaPlayer()  # BGM 재생을 위한 MediaPlayer 설정
         if self.bgm_state:
             self.bgmBox.setChecked(True)
 
@@ -167,18 +185,51 @@ class Start_UI(QMainWindow, from_class_start):
         pixmapStartPix = pixmapStartPix.scaled(label_width, label_height, Qt.KeepAspectRatio)
         self.Main_Pix.setPixmap(pixmapStartPix)
 
+    def set_images_1(self):
+    # 이미지 파일 경로 리스트
+        image_paths = [
+            Mancity_image,
+            Liverpool_image,
+            Arsenal_image,
+            Villa_image,
+            Tottenham_image,
+            Chelsea_image,
+            ManU_image,
+            Everton_image,
+            Newcatle_image,
+            Wolves_image
+        ]
+
+        list_widget_names = [
+            "listWidget_name_1", "listWidget_name_2", "listWidget_name_3", "listWidget_name_4", "listWidget_name_5",
+            "listWidget_name_6", "listWidget_name_7", "listWidget_name_8", "listWidget_name_9", "listWidget_name_10"
+        ]
+
+        for list_widget_name, image_path in zip(list_widget_names, image_paths):
+            list_widget = self.findChild(QListWidget, list_widget_name)
+            if list_widget is not None:  # QListWidget가 존재하는 경우에만 처리
+                item = QListWidgetItem()
+                pixmap = QPixmap(image_path)
+                pixmap = pixmap.scaled(40, 100, Qt.KeepAspectRatio)  # 이미지 크기를 지정함
+                icon = QIcon(pixmap)
+                label = QLabel()
+                label.setAlignment(Qt.AlignCenter)  # 가운데 정렬 설정
+                label.setPixmap(pixmap) 
+                list_widget.addItem(item)
+                list_widget.setItemWidget(item, label)
+
     def startFunction(self):
         global temp
         if temp == 0:
             temp = 1
-            start()
             self.close()
-            self.new_window = Start_UI(self.bgm_state)
-            self.new_window.show()
+            self.new_window = Start_UI(self.bgm_state)  # 객체 생성
+            self.new_window.show()  # 이미 생성한 UI를 다시 보여줍니다.
         elif temp == 1:
             self.new_window = Error_UI()  # 에러창 표시
             self.new_window.show()
-    
+
+
     def loadview(self):
         infor = search_data(0)
         
@@ -281,6 +332,7 @@ class Statistics_UI(QMainWindow, from_class_statistics):
         super().__init__()
         self.setupUi(self)
         self.set_images()
+        self.set_images_1()
         self.Start_Button.clicked.connect(self.beforeFunction)
         self.Start_Button_2.clicked.connect(self.nextFunction)
         self.Start_Button_3.clicked.connect(self.backFunction)
@@ -318,6 +370,50 @@ class Statistics_UI(QMainWindow, from_class_statistics):
         pixmapStartPix = pixmapStartPix.scaled(label_width, label_height, Qt.KeepAspectRatio)
         self.Main_Pix.setPixmap(pixmapStartPix)
 
+    def set_images_1(self):
+    # 이미지 파일 경로 리스트
+        image_paths = [
+            Mancity_image,
+            Liverpool_image,
+            Arsenal_image,
+            Villa_image,
+            Tottenham_image,
+            Chelsea_image,
+            ManU_image,
+            Everton_image,
+            Newcatle_image,
+            Wolves_image
+        ]
+
+        list_widget_names = [
+            "listWidget_name_1", "listWidget_name_2", "listWidget_name_3", "listWidget_name_4", "listWidget_name_5",
+            "listWidget_name_6", "listWidget_name_7", "listWidget_name_8", "listWidget_name_9", "listWidget_name_10"
+        ]
+
+        for list_widget_name, image_path in zip(list_widget_names, image_paths):
+            list_widget = self.findChild(QListWidget, list_widget_name)
+            if list_widget is not None:  # QListWidget가 존재하는 경우에만 처리
+                item = QListWidgetItem()
+                pixmap = QPixmap(image_path)
+                pixmap = pixmap.scaled(40, 100, Qt.KeepAspectRatio)  # 이미지 크기를 지정함
+                icon = QIcon(pixmap)
+                label = QLabel()
+                label.setAlignment(Qt.AlignCenter)  # 가운데 정렬 설정
+                label.setPixmap(pixmap) 
+                list_widget.addItem(item)
+                list_widget.setItemWidget(item, label)
+
+    def startFunction(self):
+        global temp
+        if temp == 0:
+            temp = 1
+            self.close()
+            self.new_window = Start_UI(self.bgm_state)  # 객체 생성
+            self.new_window.show()  # 이미 생성한 UI를 다시 보여줍니다.
+        elif temp == 1:
+            self.new_window = Error_UI()  # 에러창 표시
+            self.new_window.show()
+
     def beforeFunction(self):
         global index
         index += int(before())
@@ -346,7 +442,7 @@ class Statistics_UI(QMainWindow, from_class_statistics):
 
     def searchFunction_2(self) :
         self.close()
-        self.new_window = Search()
+        self.new_window = Search(self.bgm_state)
         self.new_window.show()
 
     def loadview(self, index):
@@ -419,11 +515,16 @@ class Statistics_UI(QMainWindow, from_class_statistics):
             self.bgm_state = False 
 
 class Search(QMainWindow, from_class_saerch) :
-    def __init__(self) :
+    def __init__(self, checkbox_state) :
         super().__init__()
         self.setupUi(self)
         self.set_images()
-        self.backButton.clicked.connect(self.backFunction)
+        self.back_Button.clicked.connect(self.backFunction)
+        self.bgm_state = checkbox_state
+
+        self.label_11.setStyleSheet('color: white;')
+        self.label_12.setStyleSheet('color: white;')
+        self.label_13.setStyleSheet('color: white;')
 
     def set_images(self):
         label_width = self.Main_Pix.width()

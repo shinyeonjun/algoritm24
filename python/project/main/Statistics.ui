@@ -147,12 +147,22 @@
     <string>보기</string>
    </property>
   </widget>
+  <widget class="QLineEdit" name="searchlineEdit">
+   <property name="geometry">
+    <rect>
+     <x>550</x>
+     <y>595</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>20</x>
      <y>90</y>
-     <width>911</width>
+     <width>931</width>
      <height>481</height>
     </rect>
    </property>
@@ -216,9 +226,6 @@
     <item row="2" column="7">
      <widget class="QListView" name="listView_points_2"/>
     </item>
-    <item row="7" column="0">
-     <widget class="QListView" name="listView_name_7"/>
-    </item>
     <item row="3" column="4">
      <widget class="QListView" name="listView_gf_3"/>
     </item>
@@ -262,9 +269,6 @@
     <item row="9" column="3">
      <widget class="QListView" name="listView_draw_9"/>
     </item>
-    <item row="8" column="0">
-     <widget class="QListView" name="listView_name_8"/>
-    </item>
     <item row="10" column="6">
      <widget class="QListView" name="listView_gd_10"/>
     </item>
@@ -291,9 +295,6 @@
     <item row="1" column="2">
      <widget class="QListView" name="listView_lose_1"/>
     </item>
-    <item row="2" column="0">
-     <widget class="QListView" name="listView_name_2"/>
-    </item>
     <item row="4" column="4">
      <widget class="QListView" name="listView_gf_4"/>
     </item>
@@ -309,9 +310,6 @@
     <item row="10" column="3">
      <widget class="QListView" name="listView_draw_10"/>
     </item>
-    <item row="6" column="0">
-     <widget class="QListView" name="listView_name_6"/>
-    </item>
     <item row="9" column="5">
      <widget class="QListView" name="listView_ga_9"/>
     </item>
@@ -323,9 +321,6 @@
     </item>
     <item row="6" column="4">
      <widget class="QListView" name="listView_gf_6"/>
-    </item>
-    <item row="9" column="0">
-     <widget class="QListView" name="listView_name_9"/>
     </item>
     <item row="3" column="7">
      <widget class="QListView" name="listView_points_3"/>
@@ -345,9 +340,6 @@
     <item row="4" column="2">
      <widget class="QListView" name="listView_lose_4"/>
     </item>
-    <item row="10" column="0">
-     <widget class="QListView" name="listView_name_10"/>
-    </item>
     <item row="0" column="6">
      <widget class="QPushButton" name="gdButton">
       <property name="text">
@@ -360,9 +352,6 @@
     </item>
     <item row="7" column="2">
      <widget class="QListView" name="listView_lose_7"/>
-    </item>
-    <item row="5" column="0">
-     <widget class="QListView" name="listView_name_5"/>
     </item>
     <item row="7" column="5">
      <widget class="QListView" name="listView_ga_7"/>
@@ -400,14 +389,8 @@
     <item row="4" column="7">
      <widget class="QListView" name="listView_points_4"/>
     </item>
-    <item row="1" column="0">
-     <widget class="QListView" name="listView_name_1"/>
-    </item>
     <item row="8" column="1">
      <widget class="QListView" name="listView_win_8"/>
-    </item>
-    <item row="3" column="0">
-     <widget class="QListView" name="listView_name_3"/>
     </item>
     <item row="7" column="1">
      <widget class="QListView" name="listView_win_7"/>
@@ -443,9 +426,6 @@
     <item row="7" column="4">
      <widget class="QListView" name="listView_gf_7"/>
     </item>
-    <item row="4" column="0">
-     <widget class="QListView" name="listView_name_4"/>
-    </item>
     <item row="0" column="2">
      <widget class="QPushButton" name="loseButton">
       <property name="text">
@@ -453,17 +433,37 @@
       </property>
      </widget>
     </item>
+    <item row="1" column="0">
+     <widget class="QListWidget" name="listWidget_name_1"/>
+    </item>
+    <item row="10" column="0">
+     <widget class="QListWidget" name="listWidget_name_10"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QListWidget" name="listWidget_name_2"/>
+    </item>
+    <item row="9" column="0">
+     <widget class="QListWidget" name="listWidget_name_9"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QListWidget" name="listWidget_name_3"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QListWidget" name="listWidget_name_4"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QListWidget" name="listWidget_name_5"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QListWidget" name="listWidget_name_6"/>
+    </item>
+    <item row="7" column="0">
+     <widget class="QListWidget" name="listWidget_name_7"/>
+    </item>
+    <item row="8" column="0">
+     <widget class="QListWidget" name="listWidget_name_8"/>
+    </item>
    </layout>
-  </widget>
-  <widget class="QLineEdit" name="searchlineEdit">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>595</y>
-     <width>141</width>
-     <height>31</height>
-    </rect>
-   </property>
   </widget>
   <zorder>Main_Pix</zorder>
   <zorder>listView_4</zorder>
@@ -476,8 +476,8 @@
   <zorder>listView_6</zorder>
   <zorder>label_11</zorder>
   <zorder>label_12</zorder>
-  <zorder>gridLayoutWidget</zorder>
   <zorder>searchlineEdit</zorder>
+  <zorder>gridLayoutWidget</zorder>
  </widget>
  <resources/>
  <connections/>
